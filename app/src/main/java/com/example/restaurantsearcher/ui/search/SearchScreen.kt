@@ -14,6 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.example.restaurantsearcher.ui.search.component.LocationPermissionsDialogs
 import com.example.restaurantsearcher.ui.search.component.LocationUtils
+import com.example.restaurantsearcher.ui.search.component.SearchExpandableBar
 import com.example.restaurantsearcher.ui.search.component.SearchTopBar
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.model.CameraPosition
@@ -25,7 +26,6 @@ import com.google.maps.android.compose.rememberCameraPositionState
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(fusedLocationProviderClient: FusedLocationProviderClient) {
-    val searchText = remember { mutableStateOf("") }
     val extend = remember { mutableStateOf(false) }
     var location by remember { mutableStateOf(LatLng(1.35, 103.87)) }
     var requestLocationUpdate by remember { mutableStateOf(true) }
@@ -35,7 +35,7 @@ fun SearchScreen(fusedLocationProviderClient: FusedLocationProviderClient) {
         }
 
     Scaffold(
-        topBar = { SearchTopBar(extend = extend, searchText = searchText) },
+        topBar = { SearchTopBar(extend = extend) },
     ) {
         Column(
             modifier =
@@ -64,6 +64,10 @@ fun SearchScreen(fusedLocationProviderClient: FusedLocationProviderClient) {
             )
         } else {
             cameraPositionState.position = CameraPosition.fromLatLngZoom(location, 14f)
+        }
+
+        if (extend.value) {
+            SearchExpandableBar(extend, it)
         }
     }
 }
