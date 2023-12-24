@@ -25,12 +25,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.chargemap.compose.numberpicker.ListItemPicker
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchExpandableBar(
     extend: MutableState<Boolean>,
+    navController: NavController,
     paddingValues: PaddingValues,
 ) {
     val searchText = remember { mutableStateOf("") }
@@ -78,7 +80,10 @@ fun SearchExpandableBar(
                 }
                 Text(text = "m", fontSize = 20.sp, modifier = Modifier.align(Alignment.CenterVertically))
             }
-            Button(onClick = { extend.value = false }, modifier = Modifier.align(Alignment.CenterHorizontally).padding(8.dp)) {
+            Button(onClick = {
+                extend.value = false
+                navController.navigate("result")
+            }, modifier = Modifier.align(Alignment.CenterHorizontally).padding(8.dp)) {
                 Text(text = "検索する")
             }
         }
