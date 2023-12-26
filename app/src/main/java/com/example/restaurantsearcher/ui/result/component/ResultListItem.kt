@@ -43,11 +43,17 @@ fun ResultListItem(item: ResultItem) {
                 text = item.shopName,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom = 12.dp),
+                modifier = Modifier.padding(bottom = 12.dp, end = 16.dp),
+            )
+            Text(
+                text = item.address,
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(end = 16.dp),
             )
             Text(
                 text = item.access,
                 style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(end = 16.dp),
             )
         }
     }
