@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -10,7 +11,7 @@ android {
     defaultConfig {
         applicationId = "com.example.restaurantsearcher"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -21,12 +22,16 @@ android {
     }
 
     buildTypes {
+        debug {
+            resValue("string", "GOOGLE_MAP_API_KEY", project.findProperty("GOOGLE_MAPS_API_KEY").toString())
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
+            resValue("string", "GOOGLE_MAP_API_KEY", project.findProperty("GOOGLE_MAPS_API_KEY").toString())
         }
     }
     compileOptions {
@@ -58,7 +63,21 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-    implementation ("androidx.compose.material3:material3:1.0.1")
+    implementation("androidx.compose.material3:material3:1.0.1")
+    // google map
+    implementation("com.google.maps.android:maps-compose:2.11.4")
+    implementation("com.google.android.gms:play-services-maps:18.1.0")
+    // permission
+    implementation("com.google.accompanist:accompanist-permissions:0.27.1")
+    // location
+    implementation("com.google.android.gms:play-services-location:21.0.1")
+
+    // GMS - Google Mobile Services
+    implementation("com.google.android.gms:play-services-location:21.0.1")
+    // Needed if targeting API > 31 (Android 12+)
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
+    // Number Picker
+    implementation("com.chargemap.compose:numberpicker:1.0.3")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
