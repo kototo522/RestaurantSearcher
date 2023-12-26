@@ -1,14 +1,15 @@
 package com.example.restaurantsearcher.ui.search.component
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.res.stringResource
@@ -20,16 +21,15 @@ import com.example.restaurantsearcher.R
 @Composable
 fun SearchTopBar(extend: MutableState<Boolean>) {
     val navigationIcon = if (extend.value) Icons.Default.Close else Icons.Default.Search
-    Column {
-        TopAppBar(
-            title = {
-                Text(text = stringResource(id = R.string.app_name), fontSize = 16.sp, textAlign = TextAlign.Center)
-            },
-            navigationIcon = {
-                IconButton(onClick = { extend.value = !extend.value }) {
-                    Icon(imageVector = navigationIcon, contentDescription = null)
-                }
-            },
-        )
-    }
+    TopAppBar(
+        title = {
+            Text(text = stringResource(id = R.string.app_name), fontSize = 16.sp, textAlign = TextAlign.Center)
+        },
+        navigationIcon = {
+            IconButton(onClick = { extend.value = !extend.value }) {
+                Icon(imageVector = navigationIcon, contentDescription = null)
+            }
+        },
+        colors = TopAppBarDefaults.smallTopAppBarColors(MaterialTheme.colorScheme.primaryContainer)
+    )
 }

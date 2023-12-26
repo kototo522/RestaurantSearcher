@@ -41,7 +41,7 @@ fun SearchExpandableBar(
         modifier =
             Modifier
                 .padding(paddingValues)
-                .background(MaterialTheme.colorScheme.background),
+                .background(MaterialTheme.colorScheme.primaryContainer),
     ) {
         Column(modifier = Modifier.padding(12.dp)) {
             Text(text = "検索", fontSize = 12.sp)
@@ -51,7 +51,7 @@ fun SearchExpandableBar(
                 label = { Text(text = "Search") },
                 colors =
                     TextFieldDefaults.textFieldColors(
-                        containerColor = MaterialTheme.colorScheme.background,
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
                     ),
                 modifier =
                     Modifier
