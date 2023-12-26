@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.restaurantsearcher.ui.search.SearchScreen
+import com.example.restaurantsearcher.navigation.Navigation
 import com.example.restaurantsearcher.ui.theme.RestaurantSearcherTheme
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    SearchScreen(fusedLocationProviderClient)
+                    Navigation(fusedLocationProviderClient)
                 }
             }
         }
