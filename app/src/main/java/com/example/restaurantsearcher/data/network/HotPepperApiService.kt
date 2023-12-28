@@ -9,7 +9,7 @@ interface HotPepperApiService {
         @Query("key") apiKey: String,
         @Query("lat") latitude: Double,
         @Query("lng") longitude: Double,
+        @Query("keyword") keyword: String,
         @Query("range") range: Int,
-        @Query("order") order: Int,
     ): HotPepperApiResponse
 }

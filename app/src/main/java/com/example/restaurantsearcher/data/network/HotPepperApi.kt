@@ -1,6 +1,7 @@
 package com.example.restaurantsearcher.data.network
 
 import com.example.restaurantsearcher.BuildConfig
+import com.google.android.gms.maps.model.LatLng
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
@@ -8,9 +9,21 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-fun HotPepperApi() {
+fun HotPepperApi(
+    location: LatLng,
+    searchText: String,
+    selectedValue: String,
+) {
     val apiKey = BuildConfig.HOT_PEPPER_API_KEY
     val baseUrl = "http://webservice.recruit.co.jp/hotpepper/"
+    val range =
+        when (selectedValue) {
+            "300" -> 1
+            "500" -> 2
+            "1000" -> 3
+            "2000" -> 4
+            else -> 5
+        }
 
     try {
         val loggingInterceptor =
@@ -29,10 +42,9 @@ fun HotPepperApi() {
 
         val response =
             runBlocking {
-                service.getRestaurants(apiKey, 35.67, 139.76, 1, 4)
+                service.getRestaurants(apiKey, location.latitude, location.longitude, searchText, range)
             }
 
-        // レスポンスの処理
         response.results.forEach {
             println("店名: ${it.shopName}, 住所: ${it.address}")
         }

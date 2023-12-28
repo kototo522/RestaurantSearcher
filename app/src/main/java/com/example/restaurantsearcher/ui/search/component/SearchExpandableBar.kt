@@ -23,22 +23,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.chargemap.compose.numberpicker.ListItemPicker
-import com.example.restaurantsearcher.data.network.HotPepperApi
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchExpandableBar(
     extend: MutableState<Boolean>,
-    navController: NavController,
+    onSearchClick: (searchText: String, selectedRadius: String) -> Unit,
     paddingValues: PaddingValues,
 ) {
     val searchText = remember { mutableStateOf("") }
-    val radiusValues = listOf(300, 500, 1000, 2000, 3000)
+    val radiusValues = listOf("300", "500", "1000", "2000", "3000")
     var state by remember { mutableStateOf(radiusValues[0]) }
+    val attention = remember { mutableStateOf(false) }
 
     Box(
         modifier =
@@ -47,7 +47,12 @@ fun SearchExpandableBar(
                 .background(MaterialTheme.colorScheme.primaryContainer),
     ) {
         Column(modifier = Modifier.padding(12.dp)) {
-            Text(text = "検索", fontSize = 12.sp)
+            Row {
+                Text(text = "検索", fontSize = 12.sp, modifier = Modifier.padding(end = 30.dp))
+                if (attention.value) {
+                    Text(text = "キーワードを入力してください", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.error)
+                }
+            }
             TextField(
                 value = searchText.value,
                 onValueChange = { value -> searchText.value = value },
@@ -81,11 +86,20 @@ fun SearchExpandableBar(
                 }
                 Text(text = "m", fontSize = 20.sp, modifier = Modifier.align(Alignment.CenterVertically))
             }
-            Button(onClick = {
-                extend.value = false
-                navController.navigate("result")
-                HotPepperApi()
-            }, modifier = Modifier.align(Alignment.CenterHorizontally).padding(8.dp)) {
+            Button(
+                onClick = {
+                    if (searchText.value == "") {
+                        attention.value = true
+                    } else {
+                        extend.value = false
+                        onSearchClick(searchText.value, state)
+                    }
+                },
+                modifier =
+                    Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(8.dp),
+            ) {
                 Text(text = "検索する")
             }
         }

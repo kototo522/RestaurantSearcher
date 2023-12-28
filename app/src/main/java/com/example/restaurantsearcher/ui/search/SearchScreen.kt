@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.example.restaurantsearcher.data.network.HotPepperApi
 import com.example.restaurantsearcher.ui.search.component.LocationPermissionsDialogs
 import com.example.restaurantsearcher.ui.search.component.LocationUtils
 import com.example.restaurantsearcher.ui.search.component.SearchExpandableBar
@@ -71,7 +72,14 @@ fun SearchScreen(
         }
 
         if (extend.value) {
-            SearchExpandableBar(extend, navController, it)
+            SearchExpandableBar(
+                extend,
+                onSearchClick = { newSearchText, newSelectedRadius ->
+                    HotPepperApi(location, newSearchText, newSelectedRadius)
+                    navController.navigate("result")
+                },
+                it,
+            )
         }
     }
 }
