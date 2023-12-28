@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.chargemap.compose.numberpicker.ListItemPicker
+import com.example.restaurantsearcher.data.network.HotPepperApi
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -83,6 +84,7 @@ fun SearchExpandableBar(
             Button(onClick = {
                 extend.value = false
                 navController.navigate("result")
+                HotPepperApi()
             }, modifier = Modifier.align(Alignment.CenterHorizontally).padding(8.dp)) {
                 Text(text = "検索する")
             }

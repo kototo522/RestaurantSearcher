@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -16,6 +19,21 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // local.propertiesのデータをBuildConfigに追加
+        val localPropertiesFile = File("${rootDir.path}/local.properties")
+        if (localPropertiesFile.exists()) {
+            val properties = Properties()
+            properties.load(FileInputStream(localPropertiesFile))
+            buildConfigField("String", "HOT_PEPPER_API_KEY", "\"${properties["HOT_PEPPER_API_KEY"]}\"")
+        } else {
+            val empty = ""
+            buildConfigField("String", "HOT_PEPPER_API_KEY", "\"$empty}\"")
+        }
+
+        buildFeatures {
+            buildConfig = true
+        }
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -71,7 +89,6 @@ dependencies {
     implementation("com.google.accompanist:accompanist-permissions:0.27.1")
     // location
     implementation("com.google.android.gms:play-services-location:21.0.1")
-
     // GMS - Google Mobile Services
     implementation("com.google.android.gms:play-services-location:21.0.1")
     // Needed if targeting API > 31 (Android 12+)
@@ -82,6 +99,14 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.6")
     // coil
     implementation("io.coil-kt:coil-compose:2.4.0")
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
+    implementation("com.google.code.gson:gson:2.10")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    // okhttp3
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
