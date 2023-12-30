@@ -31,6 +31,7 @@ fun SearchScreen(
     fusedLocationProviderClient: FusedLocationProviderClient,
     navController: NavController,
 ) {
+    val searchViewModel = SearchViewModel()
     val extend = remember { mutableStateOf(false) }
     var location by remember { mutableStateOf(LatLng(1.35, 103.87)) }
     var requestLocationUpdate by remember { mutableStateOf(true) }
@@ -75,7 +76,7 @@ fun SearchScreen(
             SearchExpandableBar(
                 extend,
                 onSearchClick = { newSearchText, newSelectedRadius ->
-                    HotPepperApi(location, newSearchText, newSelectedRadius)
+                    searchViewModel.performSearch(location, newSearchText, newSelectedRadius)
                     navController.navigate("result")
                 },
                 it,

@@ -1,6 +1,7 @@
 package com.example.restaurantsearcher.data.network
 
 import com.example.restaurantsearcher.BuildConfig
+import com.example.restaurantsearcher.ui.result.component.data.ResultItem
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.runBlocking
@@ -13,7 +14,7 @@ fun HotPepperApi(
     location: LatLng,
     searchText: String,
     selectedValue: String,
-) {
+): List<ResultItem> {
     val apiKey = BuildConfig.HOT_PEPPER_API_KEY
     val baseUrl = "http://webservice.recruit.co.jp/hotpepper/"
     val range =
@@ -48,7 +49,9 @@ fun HotPepperApi(
         response.results.forEach {
             println("店名: ${it.shopName}, 住所: ${it.address}")
         }
+        return response.results
     } catch (e: Exception) {
         println("Error: ${e.localizedMessage}")
+        return emptyList()
     }
 }
