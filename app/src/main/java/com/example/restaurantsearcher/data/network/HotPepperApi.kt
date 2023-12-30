@@ -42,7 +42,7 @@ fun HotPepperApi(
 
         val response =
             runBlocking {
-                service.getRestaurants(apiKey, location.latitude, location.longitude, searchText, range)
+                service.getRestaurants(apiKey, location.latitude, location.longitude, searchText, range, "json")
             }
 
         response.results.forEach {

@@ -11,5 +11,6 @@ interface HotPepperApiService {
         @Query("lng") longitude: Double,
         @Query("keyword") keyword: String,
         @Query("range") range: Int,
+        @Query("format") format: String,
     ): HotPepperApiResponse
 }
