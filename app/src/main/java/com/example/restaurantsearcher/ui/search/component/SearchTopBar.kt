@@ -30,6 +30,6 @@ fun SearchTopBar(extend: MutableState<Boolean>) {
                 Icon(imageVector = navigationIcon, contentDescription = null)
             }
         },
-        colors = TopAppBarDefaults.smallTopAppBarColors(MaterialTheme.colorScheme.primaryContainer)
+        colors = TopAppBarDefaults.smallTopAppBarColors(MaterialTheme.colorScheme.primaryContainer),
     )
 }
