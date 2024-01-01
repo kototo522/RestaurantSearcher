@@ -7,12 +7,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.restaurantsearcher.ui.result.ResultScreen
 import com.example.restaurantsearcher.ui.search.SearchScreen
+import com.example.restaurantsearcher.ui.storeDetail.StoreDetailScreen
 import com.google.android.gms.location.FusedLocationProviderClient
 
 @Composable
 fun Navigation(fusedLocationProviderClient: FusedLocationProviderClient) {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "search") {
+    NavHost(navController = navController, startDestination = "storeDetail") {
         composable("search") {
             SearchScreen(fusedLocationProviderClient = fusedLocationProviderClient, navController = navController)
         }
@@ -20,6 +21,7 @@ fun Navigation(fusedLocationProviderClient: FusedLocationProviderClient) {
             ResultScreen(navController)
         }
         composable("storeDetail") {
+            StoreDetailScreen(navController)
         }
     }
 }
