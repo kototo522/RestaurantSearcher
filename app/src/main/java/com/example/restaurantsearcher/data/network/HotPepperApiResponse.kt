@@ -1,5 +1,32 @@
-package com.example.restaurantsearcher.data.network
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-import com.example.restaurantsearcher.ui.result.component.data.ResultItem
+@Serializable
+data class HotPepperApiResponse(
+    val results: Results,
+)
 
-data class HotPepperApiResponse(val results: List<ResultItem>)
+@Serializable
+data class Results(
+    @SerialName("shop") val shop: List<Shop>,
+)
+
+@Serializable
+data class Shop(
+    val id: String,
+    val name: String,
+    val address: String,
+    val lat: Double,
+    val lng: Double,
+    val access: String,
+)
+
+@Serializable
+data class Urls(val pc: String)
+
+@Serializable
+data class Photo(val pc: PhotoSize, val mobile: PhotoSize)
+
+@Serializable
+data class PhotoSize(val l: String, val m: String, val s: String)
+

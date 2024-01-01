@@ -1,17 +1,21 @@
 package com.example.restaurantsearcher.ui.result
 
+import Shop
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.example.restaurantsearcher.ui.result.component.data.ResultItem
 
 class ResultViewModel : ViewModel() {
-    var searchResults by mutableStateOf(mutableStateListOf<ResultItem>())
+    var searchResults by mutableStateOf(mutableStateListOf<Shop>())
 
-    fun updateSearchResults(results: List<ResultItem>) {
+
+    fun updateSearchResults(results: List<Shop>?) {
         searchResults.clear()
-        searchResults.addAll(results)
+        results?.let {
+            searchResults.addAll(it)
+            println("resultScreenShop: ${searchResults.get(0)}")
+        }
     }
 }
