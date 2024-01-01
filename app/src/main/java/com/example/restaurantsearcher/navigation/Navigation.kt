@@ -13,7 +13,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 @Composable
 fun Navigation(fusedLocationProviderClient: FusedLocationProviderClient) {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "storeDetail") {
+    NavHost(navController = navController, startDestination = "search") {
         composable("search") {
             SearchScreen(fusedLocationProviderClient = fusedLocationProviderClient, navController = navController)
         }
