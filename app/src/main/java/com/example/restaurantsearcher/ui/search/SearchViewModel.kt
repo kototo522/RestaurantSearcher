@@ -1,14 +1,11 @@
 package com.example.restaurantsearcher.ui.search
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.restaurantsearcher.data.network.HotPepperApiRepository
 import com.example.restaurantsearcher.ui.result.ResultViewModel
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.launch
-import kotlin.concurrent.thread
 
 class SearchViewModel : ViewModel() {
     private val resultViewModel = ResultViewModel()

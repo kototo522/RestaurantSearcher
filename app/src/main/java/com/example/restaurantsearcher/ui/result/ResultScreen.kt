@@ -1,6 +1,5 @@
 package com.example.restaurantsearcher.ui.result
 
-import Shop
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,33 +16,20 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.restaurantsearcher.ui.result.component.ResultListItem
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ResultScreen(navController: NavController) {
-    val resultViewModel = viewModel<ResultViewModel>()
-    var resultList by remember { mutableStateOf(mutableStateListOf<Shop>()) }
-
-    LaunchedEffect(resultViewModel) {
-        launch(Dispatchers.IO) {
-            resultList = resultViewModel.searchResults
-            println("shop${resultViewModel.searchResults.toList()}")
-        }
-    }
+    val resultViewModel = remember { ResultViewModel() }
+    val resultList by resultViewModel.searchResults.collectAsState()
 
     Scaffold(
         topBar = {
@@ -60,14 +46,14 @@ fun ResultScreen(navController: NavController) {
     ) {
         Column(modifier = Modifier.padding(it)) {
             LazyColumn {
-                if (resultList.isNotEmpty()) {
+                if (resultList.shop.isNotEmpty()) {
                     println("resultScreenShopList: success")
-                    items(resultList) { item ->
+                    items(resultList.shop) { item ->
                         ResultListItem(item = item)
                         Divider(modifier = Modifier.padding(horizontal = 40.dp))
                     }
                 } else {
-                    println("resultScreenShopList: ${resultList}")
+                    println("resultScreenShopList: $resultList")
                     item {
                         Text("結果がありません", modifier = Modifier.padding(16.dp))
                     }

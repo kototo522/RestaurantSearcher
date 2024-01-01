@@ -29,4 +29,3 @@ data class Photo(val pc: PhotoSize, val mobile: PhotoSize)
 
 @Serializable
 data class PhotoSize(val l: String, val m: String, val s: String)
-
