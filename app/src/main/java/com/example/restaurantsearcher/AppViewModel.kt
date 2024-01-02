@@ -27,10 +27,10 @@ class AppViewModel : ViewModel() {
 
     fun displayStoreDetail(results: Shop?) {
         viewModelScope.launch {
-            _selectedItem.value = results?.let { shop ->
-                shop.copy(id = shop.id, name = shop.name, address = shop.address, lat = shop.lat, lng = shop.lng, open = shop.open)
-            }
+            _selectedItem.value =
+                results?.let { shop ->
+                    shop.copy(id = shop.id, name = shop.name, address = shop.address, lat = shop.lat, lng = shop.lng, open = shop.open)
+                }
         }
     }
-
 }
