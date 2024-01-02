@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
@@ -30,8 +31,8 @@ fun StoreDetailScreen(
     navController: NavController,
     appViewModel: AppViewModel,
 ) {
-    val storeDetailViewModel = StoreDetailViewModel()
-    val item = storeDetailViewModel.sampleShop
+//    val storeDetailViewModel = StoreDetailViewModel()
+    val item = appViewModel.selectedItem.collectAsState()
     Scaffold(
         topBar = {
             TopAppBar(
@@ -49,19 +50,19 @@ fun StoreDetailScreen(
             {
                 Column(modifier = Modifier.padding(it)) {
                     AsyncImage(
-                        model = item.photo.mobile.l,
+                        model = item.value!!.photo.mobile.l,
                         contentDescription = null,
                         modifier = Modifier.weight(4f),
                         contentScale = ContentScale.Crop,
                     )
                     Column(
                         modifier =
-                            Modifier
-                                .weight(1f)
-                                .padding(horizontal = 24.dp),
+                        Modifier
+                            .weight(1f)
+                            .padding(horizontal = 24.dp),
                     ) {
                         Text(
-                            text = item.name,
+                            text = item.value!!.name,
                             fontSize = MaterialTheme.typography.titleLarge.fontSize,
                             fontWeight = MaterialTheme.typography.titleLarge.fontWeight,
                             modifier = Modifier.padding(vertical = 8.dp),
@@ -73,7 +74,7 @@ fun StoreDetailScreen(
                                 modifier = Modifier.padding(end = 8.dp),
                             )
                             Text(
-                                text = item.address,
+                                text = item.value!!.address,
                                 fontSize = MaterialTheme.typography.titleMedium.fontSize,
                             )
                         }
@@ -84,7 +85,7 @@ fun StoreDetailScreen(
                                 modifier = Modifier.padding(end = 8.dp),
                             )
                             Text(
-                                text = item.open,
+                                text = item.value!!.open,
                                 fontSize = MaterialTheme.typography.titleMedium.fontSize,
                             )
                         }

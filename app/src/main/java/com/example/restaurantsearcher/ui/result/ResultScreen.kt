@@ -25,6 +25,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.restaurantsearcher.AppViewModel
 import com.example.restaurantsearcher.ui.result.component.ResultListItem
+import com.example.restaurantsearcher.ui.result.component.ResultViewModel
+import com.example.restaurantsearcher.ui.search.SearchViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,6 +34,7 @@ fun ResultScreen(
     navController: NavController,
     appViewModel: AppViewModel,
 ) {
+    val resultViewModel = ResultViewModel(appViewModel)
     val shopList by appViewModel.searchResults.collectAsState()
 
     Scaffold(
@@ -55,6 +58,7 @@ fun ResultScreen(
                         Column(
                             modifier =
                                 Modifier.clickable {
+                                    resultViewModel.selectItem(item)
                                     navController.navigate("storeDetail")
                                 },
                         ) {
