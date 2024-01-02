@@ -17,19 +17,24 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.restaurantsearcher.AppViewModel
 import com.example.restaurantsearcher.ui.result.component.ResultListItem
+import com.example.restaurantsearcher.ui.result.component.ResultViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ResultScreen(navController: NavController) {
-    val resultViewModel = remember { ResultViewModel() }
-//    val resultList by resultViewModel.searchResults.collectAsState()
-    val resultList = resultViewModel.sampleList
+fun ResultScreen(
+    navController: NavController,
+    appViewModel: AppViewModel,
+) {
+    val resultViewModel = ResultViewModel(appViewModel)
+    val shopList by appViewModel.searchResults.collectAsState()
 
     Scaffold(
         topBar = {
@@ -46,12 +51,13 @@ fun ResultScreen(navController: NavController) {
     ) {
         Column(modifier = Modifier.padding(it)) {
             LazyColumn {
-                if (resultList.isNotEmpty()) {
+                if (shopList.shop.isNotEmpty()) {
                     println("resultScreenShopList: success")
-                    items(resultList) { item ->
+                    items(shopList.shop) { item ->
                         Column(
                             modifier =
                                 Modifier.clickable {
+                                    resultViewModel.selectItem(item)
                                     navController.navigate("storeDetail")
                                 },
                         ) {
@@ -60,7 +66,7 @@ fun ResultScreen(navController: NavController) {
                         }
                     }
                 } else {
-                    println("resultScreenShopList: $resultList")
+                    println("resultScreenShopList: $shopList")
                     item {
                         Text("結果がありません", modifier = Modifier.padding(16.dp))
                     }
