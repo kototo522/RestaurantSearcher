@@ -13,16 +13,15 @@ data class Results(
 
 @Serializable
 data class Shop(
-    val id: String,
-    val name: String,
-    val address: String,
-    val lat: Double,
-    val lng: Double,
-    val access: String,
+    val id: String, // id
+    val name: String, // 店舗名称
+    val address: String, // 住所
+    val lat: Double, // 緯度
+    val lng: Double, // 経度
+    val access: String, // アクセス(〇〇駅から徒歩x分)
+    val photo: Photo, // 画像
+    val open: String, // 営業時間
 )
-
-@Serializable
-data class Urls(val pc: String)
 
 @Serializable
 data class Photo(val pc: PhotoSize, val mobile: PhotoSize)

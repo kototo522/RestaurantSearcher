@@ -29,7 +29,8 @@ import com.example.restaurantsearcher.ui.result.component.ResultListItem
 @Composable
 fun ResultScreen(navController: NavController) {
     val resultViewModel = remember { ResultViewModel() }
-    val resultList by resultViewModel.searchResults.collectAsState()
+//    val resultList by resultViewModel.searchResults.collectAsState()
+    val resultList = resultViewModel.sampleList
 
     Scaffold(
         topBar = {
@@ -46,11 +47,11 @@ fun ResultScreen(navController: NavController) {
     ) {
         Column(modifier = Modifier.padding(it)) {
             LazyColumn {
-                if (resultList.shop.isNotEmpty()) {
+                if (resultList.isNotEmpty()) {
                     println("resultScreenShopList: success")
-                    items(resultList.shop) { item ->
+                    items(resultList) { item ->
                         ResultListItem(item = item)
-                        Divider(modifier = Modifier.padding(horizontal = 40.dp))
+                        Divider(modifier = Modifier.padding(horizontal = 28.dp))
                     }
                 } else {
                     println("resultScreenShopList: $resultList")
