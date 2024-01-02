@@ -50,11 +50,13 @@ fun ResultScreen(navController: NavController) {
                     println("resultScreenShopList: success")
                     items(resultList) { item ->
                         Column(
-                            modifier = Modifier.clickable {
-                            navController.navigate("storeDetail")
-                            }) {
-                                ResultListItem(item = item)
-                                Divider(modifier = Modifier.padding(horizontal = 28.dp))
+                            modifier =
+                                Modifier.clickable {
+                                    navController.navigate("storeDetail")
+                                },
+                        ) {
+                            ResultListItem(item = item)
+                            Divider(modifier = Modifier.padding(horizontal = 28.dp))
                         }
                     }
                 } else {
