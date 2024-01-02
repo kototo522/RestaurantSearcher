@@ -32,13 +32,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.restaurantsearcher.AppApplication
+import com.example.restaurantsearcher.data.local.FavoriteDao
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StoreDetailScreen(navController: NavController) {
-    val storeDetailViewModel = StoreDetailViewModel()
+    val application = AppApplication()
+    val favoriteDao: FavoriteDao by lazy { application.favoriteDao }
+    val storeDetailViewModel = StoreDetailViewModel(favoriteDao)
     val item = storeDetailViewModel.sampleShop
     var isStarred by remember { mutableStateOf(false) }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -79,7 +84,11 @@ fun StoreDetailScreen(navController: NavController) {
                             Icon(
                                 imageVector = Icons.Default.Star,
                                 contentDescription = "お気に入り",
-                                modifier = Modifier.size(32.dp).clickable { isStarred = !isStarred },
+                                modifier = Modifier.size(32.dp).clickable
+                                    {
+                                        isStarred = !isStarred
+                                        storeDetailViewModel.addFavorite(item)
+                                    },
                                 tint = if (isStarred) Color.Yellow else Color.LightGray,
                             )
                         }

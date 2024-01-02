@@ -3,12 +3,20 @@ package com.example.restaurantsearcher.ui.storeDetail
 import Photo
 import PhotoSize
 import Shop
+import android.app.Application
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.restaurantsearcher.AppApplication
+import com.example.restaurantsearcher.data.local.FavoriteDao
+import com.example.restaurantsearcher.data.local.FavoriteEntity
+import kotlinx.coroutines.launch
+import java.util.UUID
 
-class StoreDetailViewModel : ViewModel() {
+class StoreDetailViewModel(private val favoriteDao: FavoriteDao) : ViewModel() {
+
     val sampleShop =
         Shop(
-            id = "OOOOOOOOOO",
+            id = "OOOOOOOOO2",
             name = "ラーメン嬉屋2",
             address = "大分県宇佐市大字下拝田709-5",
             lat = 33.556324,
@@ -31,4 +39,12 @@ class StoreDetailViewModel : ViewModel() {
                 ),
             open = "月～日、祝日、祝前日: 11:00～20:00",
         )
+
+    fun addFavorite(item: Shop) {
+        viewModelScope.launch {
+            favoriteDao.insertFavorite(
+                FavoriteEntity(item.id)
+            )
+        }
+    }
 }

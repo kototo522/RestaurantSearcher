@@ -19,7 +19,7 @@ class ResultViewModel : ViewModel() {
     val sampleList =
         listOf(
             Shop(
-                id = "OOOOOOOOOO",
+                id = "OOOOOOOOO1",
                 name = "ラーメン嬉屋1",
                 address = "大分県宇佐市大字下拝田709-5",
                 lat = 33.556324,
@@ -43,7 +43,7 @@ class ResultViewModel : ViewModel() {
                 open = "月～日、祝日、祝前日: 11:00～20:00",
             ),
             Shop(
-                id = "OOOOOOOOOO",
+                id = "OOOOOOOOO2",
                 name = "ラーメン嬉屋2",
                 address = "大分県宇佐市大字下拝田709-5",
                 lat = 33.556324,

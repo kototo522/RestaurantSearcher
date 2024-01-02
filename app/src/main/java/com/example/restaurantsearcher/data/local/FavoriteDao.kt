@@ -10,6 +10,6 @@ interface FavoriteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFavorite(favorite: FavoriteEntity)
 
-    @Query("SELECT * FROM favorite_table WHERE item = item")
-    suspend fun getFavorite(itemId: String): FavoriteEntity?
+//    @Query("SELECT * FROM favorite_table WHERE itemId = :itemId")
+//    suspend fun getFavorite(itemId: String): FavoriteEntity?
 }
