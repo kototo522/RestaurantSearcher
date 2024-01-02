@@ -1,5 +1,6 @@
 package com.example.restaurantsearcher.ui.result
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,8 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -50,8 +49,13 @@ fun ResultScreen(navController: NavController) {
                 if (resultList.isNotEmpty()) {
                     println("resultScreenShopList: success")
                     items(resultList) { item ->
-                        ResultListItem(item = item)
-                        Divider(modifier = Modifier.padding(horizontal = 28.dp))
+                        Column(
+                            modifier = Modifier.clickable {
+                            navController.navigate("storeDetail")
+                            }) {
+                                ResultListItem(item = item)
+                                Divider(modifier = Modifier.padding(horizontal = 28.dp))
+                        }
                     }
                 } else {
                     println("resultScreenShopList: $resultList")
