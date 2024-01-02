@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.example.restaurantsearcher.AppViewModel
 import com.example.restaurantsearcher.ui.search.component.LocationPermissionsDialogs
 import com.example.restaurantsearcher.ui.search.component.LocationUtils
 import com.example.restaurantsearcher.ui.search.component.SearchExpandableBar
@@ -29,8 +30,9 @@ import com.google.maps.android.compose.rememberCameraPositionState
 fun SearchScreen(
     fusedLocationProviderClient: FusedLocationProviderClient,
     navController: NavController,
+    appViewModel: AppViewModel,
 ) {
-    val searchViewModel = SearchViewModel()
+    val searchViewModel = SearchViewModel(appViewModel)
     val extend = remember { mutableStateOf(false) }
     var location by remember { mutableStateOf(LatLng(1.35, 103.87)) }
     var requestLocationUpdate by remember { mutableStateOf(true) }

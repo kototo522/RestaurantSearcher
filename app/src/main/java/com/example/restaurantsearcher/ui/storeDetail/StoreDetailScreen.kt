@@ -22,10 +22,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.restaurantsearcher.AppViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun StoreDetailScreen(navController: NavController) {
+fun StoreDetailScreen(
+    navController: NavController,
+    appViewModel: AppViewModel,
+) {
     val storeDetailViewModel = StoreDetailViewModel()
     val item = storeDetailViewModel.sampleShop
     Scaffold(
@@ -41,50 +45,53 @@ fun StoreDetailScreen(navController: NavController) {
             )
         },
     ) {
-        if(item != null){
-            Column(modifier = Modifier.padding(it)) {
-                AsyncImage(
-                    model = item.photo.mobile.l,
-                    contentDescription = null,
-                    modifier = Modifier.weight(4f),
-                    contentScale = ContentScale.Crop,
-                )
-                Column(modifier = Modifier
-                    .weight(1f)
-                    .padding(horizontal = 24.dp)) {
-                    Text(
-                        text = item.name,
-                        fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                        fontWeight = MaterialTheme.typography.titleLarge.fontWeight,
-                        modifier = Modifier.padding(vertical = 8.dp),
+        if (item != null)
+            {
+                Column(modifier = Modifier.padding(it)) {
+                    AsyncImage(
+                        model = item.photo.mobile.l,
+                        contentDescription = null,
+                        modifier = Modifier.weight(4f),
+                        contentScale = ContentScale.Crop,
                     )
-                    Row(modifier = Modifier.padding(bottom = 8.dp),) {
-                        Icon(
-                            imageVector = Icons.Default.Place,
-                            contentDescription = "住所",
-                            modifier = Modifier.padding(end = 8.dp)
-                        )
+                    Column(
+                        modifier =
+                            Modifier
+                                .weight(1f)
+                                .padding(horizontal = 24.dp),
+                    ) {
                         Text(
-                            text = item.address,
-                            fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                            text = item.name,
+                            fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                            fontWeight = MaterialTheme.typography.titleLarge.fontWeight,
+                            modifier = Modifier.padding(vertical = 8.dp),
                         )
-                    }
-                    Row(modifier = Modifier.padding(bottom = 8.dp),) {
-                        Icon(
-                            imageVector = Icons.Default.DateRange,
-                            contentDescription = "営業時間",
-                            modifier = Modifier.padding(end = 8.dp)
-                        )
-                        Text(
-                            text = item.open,
-                            fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                        )
+                        Row(modifier = Modifier.padding(bottom = 8.dp)) {
+                            Icon(
+                                imageVector = Icons.Default.Place,
+                                contentDescription = "住所",
+                                modifier = Modifier.padding(end = 8.dp),
+                            )
+                            Text(
+                                text = item.address,
+                                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                            )
+                        }
+                        Row(modifier = Modifier.padding(bottom = 8.dp)) {
+                            Icon(
+                                imageVector = Icons.Default.DateRange,
+                                contentDescription = "営業時間",
+                                modifier = Modifier.padding(end = 8.dp),
+                            )
+                            Text(
+                                text = item.open,
+                                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                            )
+                        }
                     }
                 }
-            }
-        } else {
-            Text( text = "アクセスに失敗しました" )
+            } else {
+            Text(text = "アクセスに失敗しました")
         }
-
     }
 }
