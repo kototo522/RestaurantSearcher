@@ -1,9 +1,12 @@
 package com.example.restaurantsearcher.ui.storeDetail
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -23,6 +26,8 @@ import coil.compose.AsyncImage
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StoreDetailScreen(navController: NavController) {
+    val storeDetailViewModel = StoreDetailViewModel()
+    val item = storeDetailViewModel.sampleShop
     Scaffold(
         topBar = {
             TopAppBar(
@@ -36,30 +41,50 @@ fun StoreDetailScreen(navController: NavController) {
             )
         },
     ) {
-        Column(modifier = Modifier.padding(it)) {
-            AsyncImage(
-                model = "",
-                contentDescription = null,
-                modifier = Modifier.weight(3f),
-                contentScale = ContentScale.Crop,
-            )
-            Column(modifier = Modifier.weight(1f).padding(horizontal = 24.dp)) {
-                Text(
-                    text = "お店の名前",
-                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                    modifier = Modifier.padding(bottom = 8.dp),
+        if(item != null){
+            Column(modifier = Modifier.padding(it)) {
+                AsyncImage(
+                    model = item.photo.mobile.l,
+                    contentDescription = null,
+                    modifier = Modifier.weight(4f),
+                    contentScale = ContentScale.Crop,
                 )
-                Text(
-                    text = "住所",
-                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                    modifier = Modifier.padding(bottom = 4.dp),
-                )
-                Text(
-                    text = "営業時間",
-                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                    modifier = Modifier.padding(bottom = 4.dp),
-                )
+                Column(modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = 24.dp)) {
+                    Text(
+                        text = item.name,
+                        fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                        fontWeight = MaterialTheme.typography.titleLarge.fontWeight,
+                        modifier = Modifier.padding(vertical = 8.dp),
+                    )
+                    Row(modifier = Modifier.padding(bottom = 8.dp),) {
+                        Icon(
+                            imageVector = Icons.Default.Place,
+                            contentDescription = "住所",
+                            modifier = Modifier.padding(end = 8.dp)
+                        )
+                        Text(
+                            text = item.address,
+                            fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                        )
+                    }
+                    Row(modifier = Modifier.padding(bottom = 8.dp),) {
+                        Icon(
+                            imageVector = Icons.Default.DateRange,
+                            contentDescription = "営業時間",
+                            modifier = Modifier.padding(end = 8.dp)
+                        )
+                        Text(
+                            text = item.open,
+                            fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                        )
+                    }
+                }
             }
+        } else {
+            Text( text = "アクセスに失敗しました" )
         }
+
     }
 }

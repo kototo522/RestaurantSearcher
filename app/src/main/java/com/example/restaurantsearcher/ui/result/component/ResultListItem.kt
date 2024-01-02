@@ -1,5 +1,6 @@
 package com.example.restaurantsearcher.ui.result.component
 
+import Shop
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,10 +18,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.restaurantsearcher.ui.result.component.data.ResultItem
 
 @Composable
-fun ResultListItem(item: ResultItem) {
+fun ResultListItem(item: Shop) {
     Row(
         modifier =
             Modifier
@@ -29,18 +29,18 @@ fun ResultListItem(item: ResultItem) {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         AsyncImage(
-            model = item.shopImage,
+            model = item.photo.mobile.l,
             contentDescription = null,
             modifier =
                 Modifier
-                    .size(72.dp)
-                    .clip(shape = MaterialTheme.shapes.medium),
+                    .size(84.dp)
+                    .clip(shape = MaterialTheme.shapes.small),
             contentScale = ContentScale.Crop,
         )
-        Spacer(modifier = Modifier.width(36.dp))
+        Spacer(modifier = Modifier.width(24.dp))
         Column {
             Text(
-                text = item.shopName,
+                text = item.name,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(bottom = 12.dp, end = 16.dp),
